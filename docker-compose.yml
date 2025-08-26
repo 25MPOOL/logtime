@@ -1,44 +1,26 @@
 services:
-  # 開発用コンテナ
-  # プラグインのビルド(コンパイル)はこのコンテナ内で行います。
-  development:
+  dev:
     build:
       context: .
-      dockerfile: ./docker/development/Dockerfile
-    container_name: mc-plugin-dev
-    working_dir: /app
+      dockerfile: ./.devcontainer/Dockerfile
     volumes:
-      # ローカルのプロジェクトフォルダをコンテナの/appに同期します。
-      # これにより、ローカルでコードを編集すると即座にコンテナ内に反映されます。
-      - .:/app
-      # Gradleのキャッシュを永続化し、2回目以降のビルドを高速化します。
-      - gradle_cache:/root/.gradle
-    # コンテナを起動し続け、`docker-compose exec`で中に入れるようにします。
-    tty: true
-    stdin_open: true
+      - .:/workspace:cached
+      - m2_cache:/home/vscode/.m2
+    command: sleep infinity
 
-  # Paperサーバーコンテナ
-  # 開発したプラグインをテストするためのマイクラサーバーです。
   paper:
     build:
       context: .
-      dockerfile: ./docker/paper/Dockerfile
+      dockerfile: ./paper/Dockerfile
     container_name: mc-plugin-paper
     ports:
-      - "25565:25565" # Minecraftサーバーのポート
+      - "25565:25565"
     volumes:
-      # developmentコンテナでビルドしたjarファイルを、サーバーのpluginsフォルダに配置します。
-      - ./build/libs:/server/plugins
-      # ワールドデータなどを永続化します。
+      - ./target:/server/plugins
       - paper_data:/server
-    # サーバーの起動にはEULAへの同意が必要です。
-    environment:
-      EULA: "TRUE"
-    # developmentコンテナが起動してからpaperが起動するように設定
     depends_on:
-      - development
+      - dev
 
-# Dockerが管理するデータ領域(ボリューム)の定義
 volumes:
-  gradle_cache:
   paper_data:
+  m2_cache:
