@@ -1,8 +1,9 @@
 {
     "name": "Minecraft Plugin Development",
-	"build": {
-		"dockerfile": "Dockerfile"
-	},
+    "image": "mcr.microsoft.com/devcontainers/java:21",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "dev",
+    "workspaceFolder": "/workspace",
     "customizations": {
         "vscode": {
             "extensions": [
@@ -11,6 +12,5 @@
             ]
         }
     },
-    "forwardPorts": [25565],
     "postCreateCommand": "mvn dependency:go-offline"
 }

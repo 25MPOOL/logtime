@@ -1,4 +1,13 @@
 services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/workspace:cached
+      - m2_cache:/home/vscode/.m2
+    command: sleep infinity
+
   paper:
     build:
       context: .
@@ -9,6 +18,9 @@ services:
     volumes:
       - ./target:/server/plugins
       - paper_data:/server
+    depends_on:
+      - dev
 
 volumes:
   paper_data:
+  m2_cache:
