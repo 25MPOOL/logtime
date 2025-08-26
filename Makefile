@@ -1,6 +1,6 @@
 # Minecraft LogTime Plugin - 開発用Makefile
 
-.PHONY: help build start stop clean logs shell test reload
+.PHONY: help build start stop clean logs test reload
 
 # デフォルトターゲット
 help:
@@ -10,14 +10,13 @@ help:
 	@echo "  make stop    - すべてのコンテナを停止"
 	@echo "  make clean   - ビルド成果物とコンテナを削除"
 	@echo "  make logs    - Paper サーバーのログを表示"
-	@echo "  make shell   - 開発コンテナに入る"
 	@echo "  make test    - テストを実行"
 	@echo "  make reload  - プラグインをリビルドしてサーバー再起動"
 
 # プラグインをビルド
 build:
 	@echo "プラグインをビルド中..."
-	docker-compose run --rm development mvn clean package
+	mvn clean package
 
 # Paper サーバーを起動
 start:
@@ -40,13 +39,9 @@ clean:
 logs:
 	docker-compose logs -f paper
 
-# 開発コンテナに入る
-shell:
-	docker-compose run --rm development bash
-
 # テストを実行
 test:
-	docker-compose run --rm development mvn test
+	mvn test
 
 # プラグインをリビルドしてサーバー再起動（開発時に便利）
 reload:
