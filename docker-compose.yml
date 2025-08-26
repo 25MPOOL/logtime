@@ -2,7 +2,7 @@ services:
   dev:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./.devcontainer/Dockerfile
     volumes:
       - .:/workspace:cached
       - m2_cache:/home/vscode/.m2
