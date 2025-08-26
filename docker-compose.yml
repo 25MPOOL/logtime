@@ -22,7 +22,7 @@ services:
   paper:
     build:
       context: .
-      dockerfile: ./docker/paper/Dockerfile
+      dockerfile: ./paper/Dockerfile
     container_name: mc-plugin-paper
     ports:
       - "25565:25565" # Minecraftサーバーのポート

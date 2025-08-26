@@ -19,7 +19,7 @@ RUN LATEST_BUILD=$(curl -s "https://api.papermc.io/v2/projects/paper/versions/${
     wget -O paper.jar "https://api.papermc.io/v2/projects/paper/versions/${MC_VERSION}/builds/${LATEST_BUILD}/downloads/paper-${MC_VERSION}-${LATEST_BUILD}.jar"
 
 # EULAファイルを事前に作成
-COPY docker/paper/eula.txt .
+COPY paper/eula.txt .
 
 # サーバーを起動するコマンド
 # メモリ割り当てはPCのスペックに合わせて調整してください (例: -Xms2G -Xmx2G)
