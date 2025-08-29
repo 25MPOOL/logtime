@@ -4,9 +4,10 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class LogTimePlugin : JavaPlugin() {
     override fun onEnable() {
-        logger.info("LogTime Plugin has been enabled!")
+        val playerStatsService = PlayerStatsService()
+        getCommand("ranking")?.setExecutor(RankingCommand(playerStatsService))
 
-        getCommand("ranking")?.setExecutor(RankingCommand())
+        logger.info("LogTime Plugin has been enabled!")
     }
 
     override fun onDisable() {
