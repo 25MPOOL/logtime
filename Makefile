@@ -1,6 +1,6 @@
 # Minecraft LogTime Plugin - 開発用Makefile
 
-.PHONY: help build start stop clean logs test reload
+.PHONY: help build start stop clean logs test reload dev-rebuild dev-logs
 
 # デフォルトターゲット
 help:
@@ -12,6 +12,8 @@ help:
 	@echo "  make logs    - Paper サーバーのログを表示"
 	@echo "  make test    - テストを実行"
 	@echo "  make reload  - プラグインをリビルドしてサーバー再起動"
+	@echo "  make dev-rebuild - 開発用コマンド: プラグインをリビルドしてサーバー再起動"
+	@echo "  make dev-logs  - 開発用コマンド: Paper サーバーのログを表示"
 
 # プラグインをビルド
 build:
@@ -55,3 +57,13 @@ init:
 	docker-compose build
 	make build
 	@echo "初期化完了！'make start' でサーバーを起動できます。"
+
+# 開発用コマンド
+dev-rebuild:
+	docker-compose build paper
+	docker-compose restart paper
+	@echo "Plugin reloaded!"
+
+# 開発用コマンド
+dev-logs:
+	docker-compose logs -f paper

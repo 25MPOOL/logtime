@@ -11,5 +11,5 @@
             ]
         }
     },
-    "postCreateCommand": "mvn dependency:go-offline"
+    "shutdownAction": "none"
 }
